@@ -1,0 +1,40 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Local/generated paths and deterministic public conformance vectors"
+paths = [
+  '''(^|/)\.git/''',
+  '''(^|/)\.claude/''',
+  '''(^|/)node_modules/''',
+  '''(^|/)plans/''',
+  '''(^|/)remediation/''',
+  '''(^|/)scratchpad/''',
+  '''(^|/)services/\.cache/''',
+  '''(^|/)eval/data/[^/]+\.(?:json|csv)$''',
+  '''(^|/)eval/data/canonical/''',
+  '''(^|/)eval/data/twin-prime-g1p-canonical/''',
+  '''(^|/)eval/data/twin-prime-g1p-canonical-v2/''',
+  '''(^|/)eval/public-results/''',
+  '''(^|/)eval/results/''',
+  '''(^|/)db/backups/''',
+  '''(?:^|/)verifiers/mutmem-conformance/v1/MM-CV-022-A\.json$''',
+  '''(?:^|/)verifiers/mutmem-conformance/v1/MM-CV-022-B\.json$''',
+  '''(?:^|/)verifiers/mutmem-conformance/v1/MM-CV-022-C\.json$''',
+  '''(?:^|/)verifiers/mutmem-conformance/v1/MM-CV-022\.json$''',
+  '''(?:^|/)verifiers/mutmem-conformance/v1/MM-CV-023\.json$''',
+  '''(?:^|/)verifiers/mutmem-conformance/v1/MM-CV-024\.json$''',
+]
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Public P3 qualification: one-way Housekeeper key commitments, never key material"
+condition = "AND"
+paths = [
+  '''(?:^|/)verifiers/mutmem-conformance/v2/p3-clean-installer-qualification\.json$''',
+]
+regexes = [
+  '''7b503a233c7e481b4fc1c013c318ea47c91a2cc23d9cf9895ac47f3915f497d7''',
+]

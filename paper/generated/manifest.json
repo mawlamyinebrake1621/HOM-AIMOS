@@ -1,0 +1,37 @@
+{
+  "schema": "hom.aimos.mutmem-v2-manuscript-assets/v1",
+  "manuscript_contract_sha256": "bd532b696ea45369ec4dfba5af9e146027be332a56e81c919fa0c7fd1038c7d2",
+  "publication_evidence_root_sha256": "99bed29dcf0cc5c2f597f17b69be8d6dc990bae4ae5dd30838a1d1f34d92a76b",
+  "table_registry_sha256": "3d454f986514f8de3abdfcabe1fd162ac3358c844aec433490b241df1eefcffd",
+  "claim_map_sha256": "4d8d23442e9ed311e33ddd9ce9a79e878642eba93329c460e203128e54997527",
+  "independent_verification_sha256": "f38268c86f2291971ac6ab75ded944d9a7e7eb6fa2809a5367d69dacd450ffe0",
+  "assets": [
+    {
+      "path": "paper/generated/evidence-values.tex",
+      "file_sha256": "5df2662a7c3555d741d59f31d76f27e5ad048eaafae9745d6d2268d8819f908e"
+    },
+    {
+      "path": "paper/generated/historical-results-table.tex",
+      "file_sha256": "0758f14721fe8005b353ee3ec755495ed526e697b6ac8ef823134fcc8ff51ad5"
+    },
+    {
+      "path": "paper/generated/historical-ablation-table.tex",
+      "file_sha256": "7ee07ccc11412ee8af727f8941a8926e3c2de6e66830d989f1137d8d7d570d08"
+    },
+    {
+      "path": "paper/generated/v2-evidence-table.tex",
+      "file_sha256": "2fc6dab929013a85ac8c0e90bc053bbd46582280188821ed69d4c21f8e5b8c31"
+    },
+    {
+      "path": "paper/generated/claim-map-table.tex",
+      "file_sha256": "86411c40b2798ebe77c34eb95ac1033d1e4a8034bdb0ccb916af61e46796c03a"
+    }
+  ],
+  "asset_count": 5,
+  "deterministic": true,
+  "benchmark_run": false,
+  "database_access": false,
+  "network_access": false,
+  "provider_call": false,
+  "manuscript_assets_sha256": "a9dd4c95689165369dd2658db0c6f8f6b328fa9b36d085edbbd2ec3a60e9fece"
+}

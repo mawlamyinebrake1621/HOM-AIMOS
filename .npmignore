@@ -1,0 +1,113 @@
+.claude/
+.git/
+.github/
+plans/
+remediation/
+scratchpad/
+research/
+engineering/
+baselines/
+RELEASE-IMPROVEMENT-PLAN.md
+REMEDIATION-INDEX.md
+architecture-authority.json
+services/.cache/
+**/__pycache__/
+**/*.pyc
+state/
+eval/data/canonical/*
+!eval/data/canonical/corpus-manifest.json
+eval/data/private/
+eval/data/twin-prime-g1p-canonical/
+eval/data/twin-prime-g1p-canonical-v2/
+eval/data/*.json
+eval/data/*.csv
+eval/public-results/
+eval/results/
+eval/gandalf-rct/
+eval/graphs/
+eval/mutmem-v2/
+!eval/mutmem-v2/
+eval/mutmem-v2/*
+!eval/mutmem-v2/content-state-occurrence-crypto.mjs
+!eval/mutmem-v2/content-state-occurrence-r8-continuity.mjs
+!eval/mutmem-v2/content-state-occurrence-r9-scale.mjs
+!eval/mutmem-v2/content-state-occurrence-r9-verifier.mjs
+!eval/mutmem-v2/content-state-r6-security-composition.mjs
+eval/saber/
+eval/twin-prime/
+eval/run-twin-prime-g1p.mjs
+eval/twin-prime-g1p-profile.mjs
+eval/V2-HANDOFF.md
+
+# Internal graph-calibration ceremonies are machine-bound development evidence,
+# not runtime services or portable reproduction inputs.
+scripts/ceremony/run-hage-g2-fixed-corpus-proof.mjs
+scripts/ceremony/run-hindsight-tempr-g2-fixed-corpus-proof.mjs
+scripts/ceremony/run-hingemem-g2-fixed-corpus-proof.mjs
+scripts/ceremony/run-hingemem-g3-boundary-proof.mjs
+scripts/ceremony/run-hmem-dense-routing-proof.mjs
+scripts/ceremony/run-hmem-h2-governed-proof.mjs
+scripts/ceremony/run-mnemis-m1-grounded-system1-proof.mjs
+scripts/ceremony/run-mnemis-m2-additive-proof.mjs
+scripts/ceremony/run-reconstructed-graph-g1-proof.mjs
+scripts/ceremony/run-reconstructed-graph-g2-additive-proof.mjs
+scripts/ceremony/run-content-state-occurrence-*
+scripts/ceremony/run-hingemem-g5-full-gearbox-proof.mjs
+scripts/ceremony/run-mnemis-m3-full-gearbox-proof.mjs
+
+# Live remediation and benchmark-qualification owners bind private checkpoints,
+# identity custody, or unfinished Gate50 state. Portable kernels and runtime
+# services ship; these machine-bound runners do not.
+scripts/benchmark/run-mutmem-v2-gate50-v2.mjs
+scripts/verification/prove-canary-magma-*
+scripts/verification/prove-content-state-occurrence-*
+scripts/verification/qualify-mutmem-v2-s7-native.mjs
+scripts/verification/run-content-state-occurrence-*
+scripts/verification/verify-canary-magma-*
+scripts/verification/verify-content-state-occurrence-*
+
+# ECR-4 and the S6 development protocol bind private preregistration or live
+# custody artifacts. The released SABER/Canary runtime and portable tests ship;
+# these unfinished research-ceremony inputs do not.
+scripts/ceremony/*saber-ecr4*
+scripts/verification/*saber-ecr4*
+scripts/verification/*mutmem-v2-s6*
+scripts/verification/lib/s6-*
+tests/security/ecr4d-*
+tests/security/saber-ecr4*
+tests/security/mutmem-v2-s6-*
+tests/security/epistemic-edit-certificate-multiclass.test.mjs
+tests/retrieval/content-state-occurrence-r10-regressions.test.mjs
+tests/retrieval/hingemem-g5-full-gearbox-evaluator.test.mjs
+tests/retrieval/mnemis-m3-full-gearbox-evaluator.test.mjs
+tests/security/canary-magma-*
+tests/security/content-state-occurrence-r3-crypto.test.mjs
+tests/security/content-state-occurrence-r7-runtime.test.mjs
+
+# One-time reconciliation of historical private database checksums is not part
+# of fresh Genesis and becomes invalid after immutable migration-note cleanup.
+scripts/ceremony/reconcile-migration-027-checksum.mjs
+scripts/ceremony/reconcile-migration-035-checksum.mjs
+tests/security/migration-checksum-reconciliation.test.mjs
+tests/security/migration-035-checksum-reconciliation.test.mjs
+
+# The public release carries only the canonical evidence verifier for the
+# latest published runs; harness-development contract tests are excluded.
+tests/benchmark/*
+!tests/benchmark/publication-evidence.test.mjs
+artifacts/
+/release/
+db/backups/
+docs/security/*.pdf
+paper/*.pdf
+paper/*.aux
+paper/*.out
+paper/*.log
+*.app/
+*.asar
+*.bak
+*.key
+*.log
+*.privkey
+*.zip
+.DS_Store

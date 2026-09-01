@@ -1,0 +1,63 @@
+{
+  "schema": "hom.aimos.genesis-manifest/v1",
+  "version": 26,
+  "hash_algorithm": "sha256",
+  "merkle_contract": {
+    "sort": "path_ascending_utf16",
+    "leaf": "sha256(JCS({bytes,path,sha256}))",
+    "parent": "sha256(left_bytes || right_bytes)",
+    "odd_node": "duplicate_last"
+  },
+  "dependencies": [
+    {
+      "name": "pgsodium",
+      "version": "3.1.11",
+      "path": "scripts/db/pgsodium-lock.json",
+      "sha256": "ac574b8be4a097aa399e6e926aea3c6209e868af1e18642b8e48ad4708a3c26b",
+      "bytes": 390
+    }
+  ],
+  "files": [
+    {
+      "path": "Guide/AGENTS.md",
+      "sha256": "4e8b14baf56ec3105d536596daaaa643fafed6b9d2c31779861f5164d55ac3ea",
+      "bytes": 2763
+    },
+    {
+      "path": "Guide/aimos-guide-tier1-boot.md",
+      "sha256": "8b74962ad0aa66183c8e48a746521112f6ed92a3900170f4527aece932396d64",
+      "bytes": 4764
+    },
+    {
+      "path": "Guide/aimos-guide-tier2-recall.md",
+      "sha256": "af9356ab1efb31c876d3a59f24e4076b568e82dc03dc1c4c0e441d0d0246e445",
+      "bytes": 11481
+    },
+    {
+      "path": "Guide/aimos-guide-tier3-save.md",
+      "sha256": "ccd7d7b14af2a8ccbe0669278bf010384e95caa73e679dc4615d5ad13e0e6d86",
+      "bytes": 8454
+    },
+    {
+      "path": "Guide/aimos-guide-tier4-debug.md",
+      "sha256": "d9fd4c6f03292438cc634c50b3d02867d2fd6deb681438e0a425c1d5818e8afa",
+      "bytes": 8336
+    },
+    {
+      "path": "Guide/aimos-llm-guide.md",
+      "sha256": "722cd4472866b13f1b33375ecf0980e2255af075498ec34d3e311a41148755ea",
+      "bytes": 48531
+    },
+    {
+      "path": "Guide/connect-to-aimos-cert-envelope.md",
+      "sha256": "58b8a5054ed493c0571b6c95ac704407694bee2f86296786a77d8719e197867e",
+      "bytes": 5428
+    },
+    {
+      "path": "Guide/llm-connection-guide.md",
+      "sha256": "c87e56bec5699949df586f1369a4ca51e1ea5355adeee6c0916dccff7e7af310",
+      "bytes": 3706
+    }
+  ],
+  "corpus_root": "2004c925c6cb45c36d7e7328d92fcbab516e732b47ee35f2e3a4b6c058813aaa"
+}

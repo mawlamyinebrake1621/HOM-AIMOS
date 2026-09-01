@@ -1,0 +1,400 @@
+# AIMOS public architecture map
+
+Status: source-derived public runtime map
+Service census: 295 JavaScript services across 17 groups
+
+This document describes the released AIMOS backend. It contains no deployment
+state, retained memory, private product roadmap, machine path, operator record,
+or live-run transcript. The exact file inventory is
+`hom-architecture-manifest.json`; code imports, callers, tests, migrations, and
+live endpoints remain authoritative for runtime behavior.
+
+## Authority order
+
+1. Live AIMOS endpoints and retained, cryptographically admitted evidence.
+2. Generated `architecture-authority.json` on the installed machine.
+3. `hom-architecture-manifest.json`.
+4. The manifest-bound `Guide/` corpus.
+5. This navigation document.
+
+The portable `architecture-authority.template.json` is distributed publicly.
+The generated machine-local authority, identities, credentials, memories, and
+receipts are never release inputs.
+
+## Runtime topology
+
+```text
+signed client or local housekeeper
+              |
+              v
+        authentication gate
+              |
+       +------+-------+
+       |              |
+       v              v
+ native save       native recall
+       |              |
+       v              v
+ quality, write,   provenance admission,
+ epistemic and     retrieval, epistemic
+ lineage checks    selection and calibration
+       |              |
+       +------+-------+
+              v
+ PostgreSQL memory, provenance, identity,
+ authorization, credential and event ledgers
+              |
+       +------+-------+
+       |              |
+       v              v
+ housekeeper      signed receipts and
+ maintenance      portable verification
+```
+
+PostgreSQL is the canonical store. The filesystem carries source code,
+machine-local keys protected by file permissions and Keychain custody, and
+generated authority metadata; it is not a second memory authority.
+
+## Public entrypoints
+
+`server.js` mounts these runtime surfaces:
+
+- `/aimos` — signed save, recall, status, lineage, cognition, and diagnostics.
+- `/agents` — enrolled-agent management and execution.
+- `/tools` — tool and integration execution.
+- `/status` and `/stats` — runtime state and event projections.
+- `/governance` — governed policy and improvement-cycle operations.
+- `/integrations` — provider and application connection surfaces.
+- `/security` — security diagnostics, red-team, and canary surfaces.
+- `/v1` — compatible ingestion and recall contracts.
+- `/mcp` and `/mcp/bridge` — MCP protocol translation surfaces.
+
+`services/security/auth-gate.js` and the server middleware order enforce the
+single HTTP authentication boundary. Protected requests use signed certificate
+envelopes; bearer-only authentication is not an AIMOS authority path.
+
+## Canonical pipelines
+
+`services/pipeline-manifest.js` declares the critical wiring for six pipelines.
+It declares 116 service connections across 6 pipelines.
+
+| Pipeline | Entrypoint | Responsibility |
+|---|---|---|
+| Save | `services/write/canonical-save-owner.js` | Fixed-order admission, security, validation, persistence, evidence and atomic signed terminal ownership |
+| Recall | `routes/aimos.js` | Query planning, retrieval, provenance admission, epistemic selection, calibration, bounded evidence and signed receipt |
+| Agent run | `services/orchestration/agent-runner.js` | Constitution, governance, model/tool execution, learning and evidence recording |
+| Dream | `jobs/nightly-dream.js` | Governed, non-destructive consolidation and learning projections |
+| Heartbeat | `jobs/heartbeat.js` | Database, memory, event, process and retention health |
+| Governance | `services/orchestration/governance-resolver.js` | Policy, rule, trust and decision resolution |
+
+The manifest is the source of truth for these six critical-connection maps,
+not a substitute for the complete import graph or caller analysis. Its
+validator dynamically imports every declared service and checks the named
+exports. Architecture tests and the release-source gate fail when this wiring,
+the service census, and the public documentation diverge.
+
+### Native save path
+
+All durable product writes converge on
+`services/write/canonical-save-owner.js`. Transports and autonomous callers
+submit authenticated intent to this owner; only it imports the lower-level
+`services/write/persist-memory.js` transaction/persistence primitive.
+The fixed execution order is:
+
+| # | Stage | Native owner |
+|---:|---|---|
+| 1–2 | AUTH → RECEIPT | certificate/request receipt or signed internal Housekeeper action |
+| 3–4 | CANARY → SE | native Canary and contextual security decision owners |
+| 5–8 | ALADDIN → VALIDATOR → QUALITY → SECRET_BOUNDARY | canonical policy, validation, quality and credential isolation owners |
+| 9–14 | EMBEDDING → PERSISTENCE → PROVENANCE → LINEAGE → GRAPH → EPISTEMIC | restricted `persistMemory` transaction and its database-local evidence owners |
+| 15 | TERMINAL | atomic Housekeeper-signed canonical SAVE terminal |
+
+The canonical owner creates the restricted transaction and injects its client
+into `persistMemory()`. A successful terminal is inserted inside that same
+transaction after persistence, provenance, lineage, graph and epistemic
+evidence. Rejection keeps request/action evidence and appends a signed
+non-success terminal without a memory row; rollback cannot emit success.
+Verified requests and tool actions remain the operation authority for their
+derived saves. Autonomous callers use `executeHousekeeperCanonicalSave()`,
+which appends and database-verifies an exact action commitment before the same
+15 stages execute. The bare string `housekeeper` is rejected, and no route
+imports the autonomous entrypoint. Session turn, exchange and finalization
+preserve one selected authority; the public heartbeat surface is Housekeeper-
+only and delegates to the same internal heartbeat owner used by the scheduler.
+
+### Native recall path
+
+`executeCanonicalRecall` in
+`services/retrieval/native-recall-pipeline.js` is the sole production
+execution owner. It resolves the signed command and locks the actor/grant in
+the same restricted repeatable-read transaction used for every candidate read
+and provenance admission. Optional gears use serialized savepoints within that
+snapshot; no production caller composes a predecessor authority transaction.
+The externally visible path has eight principal stages:
+
+| # | Stage | Native owner |
+|---:|---|---|
+| 1 | Query understanding and path selection | `services/retrieval/native-recall-pipeline.js` |
+| 2 | Embedding and candidate opening | `services/core/embeddings.js` |
+| 3 | Similarity statistics | `services/retrieval/similarity-stats.js` |
+| 4 | Trust scoring | `services/learning/trust-score.js` |
+| 5 | Permanent dense, sparse, temporal, entity, QuIM, QMD, HyDE, and concept gears plus one bounded Reconstructed-Graph G2 family channel with central deterministic RRF | `services/retrieval/native-recall-pipeline.js`, `services/retrieval/native-retrieval-fusion.js`, `services/retrieval/reconstructed-graph-native-candidate.js` |
+| 6 | Verified epistemic projection and selection | `services/retrieval/epistemic-trust-retrieval.js` |
+| 7 | Pre-disclosure calibration | `services/retrieval/recall-calibrator.js` |
+| 8 | Bounded evidence and signed receipt | `services/retrieval/native-recall.js` |
+
+The 34 declared recall connections span exact-identifier, semantic, temporal,
+graph, procedural, lineage, cache, instrumentation, and ingestion-assisted
+paths. Candidate evidence passes provenance and authorization admission before
+deduplication, scoring, graph/fusion influence, epistemic selection and bounded
+disclosure. A proposed-but-unadmitted row fails the request instead of silently
+changing another row's rank. Online recall performs no similarity-statistics or
+pheromone mutation; durable adaptation belongs to a separately signed action
+owner.
+
+MAGMA is retained dormant research. Its source, paper implementation, tests,
+and historical artifacts remain available, but it has no canonical recall
+import, pipeline-manifest edge, discovery path, or rank vote. Recall emits an
+explicit dormancy decision. Reconstructed Graph G2 is the sole live subgear in
+the bounded graph-family channel and remains downstream of principal and
+provenance admission and upstream of epistemic, Canary, SABER-evidence, and
+Aladdin boundaries.
+
+### Native cognitive-mutation plane
+
+Canonical memory content and existence are immutable. Cognitive mutation
+changes only `retrieval_weight`, bidirectionally within `[0.1, 3.0]`, so a low
+frequency never becomes deletion or ineligibility.
+
+The implemented signal owners are distinct and explicit:
+
+| Lane | Signal and update | Native owner |
+|---|---|---|
+| Outcome adaptation | Signed positive/negative outcome → cumulative age-neutral valence → bounded reference-point update | `services/learning/stdp-kernel.js` |
+| Valence evidence | Append-only signed reward evidence and `tanh(sum rewards)` judge | `services/governance/valence-ledger.js`, `services/governance/valence-judge.js` |
+| Consolidation | Governed positive SPICED strengthening of eligible retained memories | `services/dream/spiced-consolidator.js` |
+| Relational consensus | Optional symmetric elevation or attenuation from semantic-neighborhood support | `services/dream/hebbian-consensus.js` |
+
+Hebbian consensus is shadow-first and disabled unless its signed governor flag
+is enabled. The three mutation owners call the same restricted persistence
+boundary; no service receives direct authority to rewrite a weight.
+
+Every changed target follows this certified path:
+
+1. the owning restricted transaction takes the per-memory advisory lock;
+2. `services/governance/governor-provenance.js` appends a housekeeper-signed
+   `REWEIGHT` provenance node;
+3. `services/security/housekeeper-signer.js` signs a separate fixed-width
+   transition commitment;
+4. migration 091's `apply_signed_cognitive_reweight` verifies scope, active
+   signer epoch, old/new milliscaled state, provenance, continuity, bounds, and
+   no-fork predecessor;
+5. the same transaction appends the cognitive projection and updates only
+   `retrieval_weight`; and
+6. SQL and `services/security/cognitive-weight-verifier.js` independently
+   replay the per-memory chain and whole-corpus proof root.
+
+If the quantized target equals the current state, signed outcome evidence and a
+signed unchanged event remain retained, but no fictitious projection is
+appended. The complete byte layout, proofs, and verification contract are in
+`docs/security/cognitive-weight-chain-SPEC.md`.
+
+## Service inventory
+
+The census counts top-level `services/<group>/*.js`, excluding `index.js`
+barrels, hidden directories, and the root infrastructure file
+`services/pipeline-manifest.js`.
+
+| Group | Files | Public responsibility |
+|---|---:|---|
+| retrieval | 63 | Query modes, vector/sparse retrieval, temporal and graph paths, epistemic selection and calibration |
+| orchestration | 43 | Agent execution, tools, governance, scheduling, model selection and run state |
+| security | 49 | Identity, signed envelopes, authorization, provenance, credentials, canaries, purpose-bound non-memory authority, typed epistemic evidence assertions, graph-edge evidence, dormant edit certification and signed certificate custody |
+| temporal | 22 | Freshness, event order, supersession, time-aware retrieval and retained frequency |
+| learning | 23 | Calibration, reflection, skill consolidation, STDP and bounded plasticity |
+| observe | 22 | Event ledger, explanation, drift, routing, quantitative gates and diagnostics |
+| core | 15 | Constitution, providers, permissions, embeddings, graph and runtime authority |
+| write | 15 | Canonical SAVE ownership, fixed trace contract, persistence, quality, intent, credential and validation lanes |
+| context | 9 | Scoped state, workspace partitions, continuity and active-memory policy |
+| integrations | 9 | Provider, search, messaging and application integrations |
+| governance | 7 | Retention law, configuration, valence and governance evidence |
+| dream | 5 | Consolidation, feedback, consensus and delta projections |
+| ingestion | 4 | Entity, relationship and temporal observation |
+| shared | 4 | Shared native LLM, schema, scale and session helpers |
+| answering | 2 | Prompt variants and answer ensembles |
+| runtime | 2 | Serving and local-inference control |
+| caching | 1 | Semantic cache support |
+
+File count alone does not prove activation. Activation claims require an
+import/caller path, focused tests, and when applicable a native live-fire proof.
+
+## Memory and save plane
+
+Beyond the principal stages above, the native save path composes:
+
+- certificate-envelope authentication and request receipt;
+- write authorization and session ownership;
+- quality and intent classification;
+- retained-memory epistemic classification;
+- immutable memory/version persistence;
+- content-hash and provenance-chain commitments;
+- lineage and supersession topology where applicable;
+- event-ledger and response evidence.
+
+Quarantine and epistemic labels do not delete or suppress canonical evidence.
+Irrelevant or unsafe material remains retained and distinguishable while its
+retrieval frequency and contextual eligibility are governed by signed state.
+
+## Recall plane
+
+Beyond the principal stages above, native recall combines:
+
+- mode planning and query decomposition;
+- exact-identifier, semantic, temporal, graph, procedural and lineage paths;
+- provenance and authorization admission;
+- retained-memory epistemic state;
+- trust-aware selection and calibration;
+- bounded context construction and source attribution;
+- signed recall receipts and diagnostic projections.
+
+Memory evidence is reference material, never an instruction channel. Recall
+does not expose hidden chain-of-thought; it returns bounded evidence and
+verifiable decision metadata.
+
+## Agent-security plane
+
+Security is composed into the memory lifecycle rather than attached as a final
+filter:
+
+| Capability | Runtime owner | Authority boundary |
+|---|---|---|
+| Certificate-envelope admission | `services/security/auth-gate.js` | Identity, method, path, body, nonce, timestamp, and request receipt are cryptographically bound |
+| Retained-memory epistemics | `services/security/memory-epistemic-classifier.js` | Signed, reversible label; canonical content remains retained |
+| Canary traversal | `services/security/canary-write-gate.js`, recall/tool owners | Explicit markers are observed at persistence, relay, execution, and exposure boundaries |
+| Graph security closure | `services/retrieval/native-recall-pipeline.js` | G2 graph-family evidence is fused downstream of principal/provenance admission and remains upstream of epistemic/Canary/retention disclosure control; MAGMA contributes zero runtime evidence |
+| Cognitive mutation | governance owner, housekeeper signer, restricted writer | Only bounded retrieval weight changes through signed no-fork transitions |
+| Operational red-team evidence | `services/security/red-team-toolkit.js`, `routes/security.js` | Evaluation-only; fixed manifests and native case receipts, no runtime defense authority |
+
+The SABER-inspired operational harness does not accept caller-generated
+aggregates. A campaign is one signed start, an ordered set of native signed case
+decisions, and one signed terminal or failed outcome. Validators reconstruct
+only from verified terminal event identifiers. Timeout, runtime error, missing
+decision, and missing case outcomes remain indeterminate.
+
+Canary and epistemic poisoning defense are distinct. Canary proves traversal of
+the explicit AIMOS marker family. Epistemic classification handles retained
+evidence without requiring a marker. Neither mechanism establishes content
+truth, and the operational harness is not a formal robustness certificate.
+
+## Cryptographic boundaries
+
+Cryptographic accountability is additive to the memory engine and enters at
+four explicit boundaries:
+
+- admitted memories receive signed, reversible epistemic labels bound to live
+  content hashes;
+- recall verifies and consumes those projections, applies a verified
+  calibration snapshot, and returns bounded evidence under an RFC 6962-style
+  domain-separated Merkle receipt;
+- cognitive-weight changes require housekeeper-authorized signed transitions
+  bound to the terminal provenance node, signer epoch, quantized old and new
+  weights, and no-fork predecessor; and
+- the database mutation boundary and independent portable verifier both verify
+  Ed25519 evidence.
+
+These commitments prove authorization, ordering, integrity, and decision
+history. They do not prove that an authorized assertion is factually true.
+
+## Identity, signing and authorization
+
+The security plane uses Ed25519 certificates and request signatures, nonce and
+timestamp replay controls, append-only identity epochs, revocation events,
+signed authorization, and hash-linked action ledgers. The `housekeeper` is the
+autonomous system-maintenance identity created by Genesis. User-directed agents
+are separately enrolled and cannot inherit housekeeper authority.
+
+Credentials are kept in platform custody and represented in AIMOS by signed,
+append-only lifecycle evidence. Plaintext credentials, private keys, live
+certificates, and account identifiers are excluded from the repository.
+
+## Cognitive mutation and retention
+
+Cognitive weight is bounded and bidirectional. Every admitted transition is
+signed and chained; a memory can move down or up as evidence changes, but its
+canonical existence is unaffected. The public specifications and migrations
+define the commitment and verification contracts.
+
+AIMOS has no ordinary decay, selective deletion, suppression, or deactivation
+authority. The only destructive path is the explicit, authenticated
+whole-brain legal purge ceremony. That ceremony inventories the complete target
+and emits a signed terminal receipt; it is never invoked by normal runtime
+behavior.
+
+## Autonomous maintenance
+
+The housekeeper runs system maintenance without borrowing an enrolled user
+agent. Heartbeat records health and retention evidence. Dream and learning
+jobs append governed projections and evidence; they do not create a parallel
+memory store or an unledgered deletion path.
+
+## First-run Genesis
+
+`scripts/genesis-install.mjs` verifies the Genesis manifest and locked native
+dependency metadata before creating state. It then creates the database and
+restricted runtime role, applies ordered migrations, generates machine-local
+authority, provisions the housekeeper, and ingests every manifest-bound Guide
+file through the signed native save path.
+
+The installer rejects `.env` authority, reserved legacy ports, unsafe database
+names, missing dependency proofs, changed Guide bytes, and partial Genesis
+state. A new installation therefore starts with a cryptographically bound
+operating corpus rather than a blank brain.
+
+## Verification surfaces
+
+Public verification includes:
+
+- source, architecture, security and benchmark-contract tests;
+- Genesis-manifest and dependency-lock verification;
+- package, license, SBOM, secret and private-path gates;
+- portable cognitive and epistemic-chain verifiers;
+- sanitized, self-hashed benchmark aggregates;
+- reproducible dataset downloaders with pinned revisions and hashes.
+
+Raw benchmark corpus, provider payloads, live memories, run directories,
+identity-bearing receipts, internal plans and private audit notes are not
+distributed.
+
+## Canonical measured evidence
+
+| Result | Value |
+|---|---:|
+| LongMemEval, LLM-judged | 459/500 — 91.8% |
+| LoCoMo, LLM-judged | 1472/1986 — 74.12% |
+| LoCoMo, separate upstream-compatible token F1 | 58.20 |
+| PoisonedRAG N=100, poison in attacked top-5 disclosures | 0/100 |
+| Same target set, epistemic policy bypassed | 94/100 |
+| Mutation authorization rejection cases | 7/7 |
+| Cognitive tamper cases detected | 4/4 |
+| SQL/portable cognitive verifier parity | 9/9 records |
+| Signed cognitive-transition latency, median | 4.865 ms |
+| MAGMA retained research proof (historical) | 20/20 signed recalls; 8/20 graph-discovery observations; candidate p95 218.941 ms under its fixed 250 ms gate |
+| MAGMA current-stack ruling | Dormant: later Gate50 evidence recall −0.028 and judged accuracy −0.04, candidate p95 430.081 ms; no canonical recall caller or rank vote |
+| SABER-inspired operational campaign | 27/27 attacks blocked or retained-quarantined; 0/28 benign false positives; 0 indeterminate |
+
+The protocols are distinct and are not averaged. The sanitized, self-hashed
+`eval/publication/verified-benchmark-results.json` binds the promoted paper
+evidence by SHA-256. MAGMA's retained historical artifacts and SABER-inspired
+values are separate evidence and are not folded into that benchmark aggregate;
+dormant MAGMA is not represented as current runtime performance.
+
+## Change discipline
+
+Before modifying a service, inspect its imports, callers, pipeline edge,
+database contract, tests, and cited paper header where mathematical technique is
+involved. The release forbids wrappers, hooks, placeholders, stubs, fake-green
+tests, unledgered authority, and selective memory deletion.
+
+Regenerate the service inventory after file-set changes. Regenerate the Genesis
+manifest after any Guide-byte change. Build public releases only in an empty
+directory with fresh Git history and verify the complete tree before publishing.
