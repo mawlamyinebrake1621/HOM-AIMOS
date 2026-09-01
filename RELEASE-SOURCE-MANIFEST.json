@@ -7,7 +7,7 @@
   "root_algorithm": "sha256(canonical-json(files))",
   "manifest_self_excluded": true,
   "file_count": 1000,
-  "files_root_sha256": "8a41e7780d76b2c5ec1734b135c2f23a189175db7e5a9a7788950c3970799e5f",
+  "files_root_sha256": "292ec28988662c01bc71bd18840cfa1afee5e834be56982e1a7cba29709dcbf4",
   "files": [
     {
       "path": ".github/dependabot.yml",
@@ -966,8 +966,8 @@
     },
     {
       "path": "paper/generated/evidence-values.tex",
-      "bytes": 4931,
-      "sha256": "5df2662a7c3555d741d59f31d76f27e5ad048eaafae9745d6d2268d8819f908e"
+      "bytes": 5499,
+      "sha256": "4d94a91145af910787a268285a3595927618db3a55f19661b47b9721f704a5ce"
     },
     {
       "path": "paper/generated/historical-ablation-table.tex",
@@ -982,7 +982,7 @@
     {
       "path": "paper/generated/manifest.json",
       "bytes": 1614,
-      "sha256": "454101b40d8eac27ca97054faa89175fcd2b4816ee742f6fc2d4c81c9db463be"
+      "sha256": "1f3ab002da7b2e96331515b85617de2ea41b51ecf14549d38d289f57b777fc92"
     },
     {
       "path": "paper/generated/v2-evidence-table.tex",
@@ -992,17 +992,17 @@
     {
       "path": "paper/mutmem-v2-audit.json",
       "bytes": 2147,
-      "sha256": "4d46300c38cc327943edcf59035dc95467f05421557559b4cb6c2f1709fe0c7e"
+      "sha256": "8c77217c0f17371ff1319cca113185ccea26b106146a5b9e26476f41afea552e"
     },
     {
       "path": "paper/mutmem-v2-manuscript-contract.json",
-      "bytes": 2864,
-      "sha256": "ff9eb810fc1faba9f1241ffc31b37aa67e5de59e444cccec86892cb80600a50b"
+      "bytes": 3345,
+      "sha256": "48a3fa4ad606b1775519ba7478e17b7777265ad1645eff51944862b5a3877cc5"
     },
     {
       "path": "paper/mutmem-v2.tex",
-      "bytes": 36060,
-      "sha256": "d08850f187b1f3f27de6cbe2019b2d9e237008ae061d1f95ee0d190217970b58"
+      "bytes": 36319,
+      "sha256": "0b43ec59f85253ef5b9baf8b7d6f34cadc0cb43495e9e8e2bd957c8d897d2f4c"
     },
     {
       "path": "README.md",
@@ -1506,8 +1506,8 @@
     },
     {
       "path": "scripts/publication/render-mutmem-v2-manuscript-assets.mjs",
-      "bytes": 19845,
-      "sha256": "7def02aa9b5fe75bbc1184112d6e0a81a5bccdf2ed4b7c791b01f0e2df296f28"
+      "bytes": 20331,
+      "sha256": "3aef838964564111103e3fcb6c7b9a5a2a0875b52276d1ab46ab4058d267fa39"
     },
     {
       "path": "scripts/release/build-public-repository.mjs",
@@ -1756,8 +1756,8 @@
     },
     {
       "path": "scripts/verification/verify-mutmem-v2-manuscript.mjs",
-      "bytes": 14962,
-      "sha256": "a439d599054ae156256eb28efb69fd9f96aed2213a70f02206621df196981042"
+      "bytes": 15644,
+      "sha256": "2d26a61e74f93026eb94258bfaf5dcf4db989f1b05f76ddcb86d2ea1accc7095"
     },
     {
       "path": "scripts/verification/verify-mutmem-v2-publication-evidence.mjs",
@@ -5010,5 +5010,5 @@
       "sha256": "e3db8f047f9df1a90b08e8d37de3a2ba687488966ca923839d4815c910c15b35"
     }
   ],
-  "manifest_sha256": "433fdf58f81b3b300b05980acfb9fd75ff465808241a9a36002be0f77329fa58"
+  "manifest_sha256": "d7a296f1377e0ce2086d2399e24b163ac11795070fb596de2892014078ed25d2"
 }

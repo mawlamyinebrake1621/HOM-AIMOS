@@ -170,13 +170,21 @@ function verifyManuscriptBoundary(tex, pdfText, contract, claims) {
   assert(!pdfText.includes('PoisonedRAG adaptation, attacked ASR'));
   assert(normalizedTex.includes('publication-authorized for arXiv submission'));
   assert.equal(contract.release_binding.publication_allowed, true);
-  assert.equal(contract.release_binding.immutable_tag, 'v1.0.0');
+  assert.equal(contract.release_binding.immutable_tag, 'v1.0.4');
   assert.equal(contract.release_binding.release_commit,
-    'fcda26d1e05c729185c09dd11446db2f79c14a0d');
+    'abbcae39564e9f4aa57cf8aa9b824dd1b8ad6c0c');
   assert.equal(contract.release_binding.source_manifest_sha256,
-    'f0cdb75763c70ce83bfd1e5f6c956e7502b65a812c3a43f311f8039ba0c3b7f1');
+    '433fdf58f81b3b300b05980acfb9fd75ff465808241a9a36002be0f77329fa58');
+  assert.equal(contract.release_binding.source_files_root_sha256,
+    '8a41e7780d76b2c5ec1734b135c2f23a189175db7e5a9a7788950c3970799e5f');
+  assert.equal(contract.release_binding.source_package_sha256,
+    'eaad3069e309f3bb85d786d844e935dc74cc6e0588edfae03dff799f7f988787');
+  assert.equal(contract.release_binding.sbom_sha256,
+    '2f35f0a4bf54a27e10f38d4dfdbd76a4dcae2abcc2e19620c38e842111aa7ccb');
+  assert.equal(contract.release_binding.checksums_sha256,
+    '365560d2654faabc852cada61114b7698f11f6fe21b6aabb4c79db68ac60ef42');
   assert.equal(contract.release_binding.release_url,
-    'https://github.com/wallidsaydi-creator/HOM-AIMOS/releases/tag/v1.0.0');
+    'https://github.com/wallidsaydi-creator/HOM-AIMOS/releases/tag/v1.0.4');
   assert.equal(contract.release_binding.archival_doi, null);
   assert(claims.rows.find((row) => row.claim_id === 'SABER-OPERATIONAL-NUMBERS')
     ?.disposition === 'OMITTED');
@@ -194,7 +202,12 @@ function verifyFirstPage(tex, contract) {
     '\\MutMemReleaseURL',
     '\\MutMemReleaseTag',
     '\\MutMemReleaseCommit',
+    '\\MutMemSourceManifestSHA',
     '\\MutMemSourceManifestRoot',
+    '\\MutMemSourcePackageSHA',
+    '\\MutMemSBOMSHA',
+    '\\MutMemChecksumsSHA',
+    '\\MutMemReleaseCeremonyURL',
     'npm run verify',
     'npm run evidence:regenerate',
     'npm run reproduce',

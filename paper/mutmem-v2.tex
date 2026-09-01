@@ -42,8 +42,12 @@ The evidence source commit is \MutMemEvidenceSourceCommit, and the closed
 publication-evidence root is \MutMemPublicationEvidenceRoot.
 
 The public release is \MutMemReleaseURL, immutable tag \MutMemReleaseTag,
-commit \MutMemReleaseCommit, with source-manifest root
-\MutMemSourceManifestRoot.
+commit \MutMemReleaseCommit, with source-manifest SHA-256
+\MutMemSourceManifestSHA\ and file-set root \MutMemSourceManifestRoot.
+The source package, CycloneDX SBOM, and checksum manifest are respectively
+bound by \MutMemSourcePackageSHA, \MutMemSBOMSHA, and
+\MutMemChecksumsSHA. The clean-host release ceremony is
+\MutMemReleaseCeremonyURL.
 
 Offline verification is exactly \texttt{npm run verify}; deterministic evidence
 regeneration is exactly \texttt{npm run evidence:regenerate}. For an ordinary
